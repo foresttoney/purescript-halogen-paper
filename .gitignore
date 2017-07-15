@@ -1,0 +1,20 @@
+/bower_components/
+/node_modules/
+/.pulp-cache/
+/output/
+/generated-docs/
+/.psc*
+/.purs*
+/.psa*
+=======
+# Dependencies
+.psci_modules
+bower_components
+node_modules
+
+# Generated files
+.psci
+output
+/dist/app.js
+
+
