@@ -4,29 +4,70 @@ module Paper.Indexed
   , HTMLpaperCard
   , HTMLpaperFab
   , HTMLpaperInput
+  , IronButtonState
+  , IronControlState
+  , IronA11yKeysBehavior
+  , PaperRippleBehavior
+  , PaperButtonBehavior
+  , PaperButton 
   )
   where
 
-import Data.MediaType (MediaType)
-import DOM.Event.Types (Event)
-import DOM.HTML.Indexed (Interactive)
+import Prelude
+
+import DOM.Event.Types (Event, EventTarget)
+import DOM.HTML.Indexed (Interactive, HTMLbutton)
 import DOM.HTML.Indexed.InputType (InputType)
 import DOM.HTML.Indexed.OnOff (OnOff)
 import DOM.HTML.Indexed.StepValue (StepValue)
+import Data.MediaType (MediaType)
 
-type HTMLpaperButton = Interactive 
-  ( active ∷ Boolean
-  , disabled ∷ Boolean
-  , elevation ∷ Int
-  , focused ∷ Boolean
-  , noink ∷ Boolean
-  , pointerDown ∷ Boolean
-  , pressed ∷ Boolean
-  , raised ∷ Boolean
-  , receivedFocusFromKeyboard ∷ Boolean
-  , stopKeyboardEventPropagation ∷ Boolean
-  , toggles ∷ Boolean
+-- | omitted:
+-- | keyBindings
+type IronA11yKeysBehavior r =
+  ( keyEventTarget :: EventTarget
+  , stopKeyboardEventPropagation :: Boolean
+  | r
   )
+
+-- | omitted:
+-- | keyBindings
+type IronButtonState r = IronA11yKeysBehavior
+  ( active :: Boolean
+  , ariaActiveAttribute :: String
+  , pointerDown :: Boolean
+  , pressed :: Boolean
+  , receivedFocusFromKeyboard :: Boolean
+  , toggles :: Boolean
+  | r
+  )
+
+type IronControlState r =
+  ( disabled :: Boolean
+  , focused :: Boolean
+  | r
+  )
+
+type PaperRippleBehavior r =
+  ( noink :: Boolean
+  | r
+  )
+
+type PaperButtonBehavior r = IronControlState
+  ( IronButtonState
+    ( PaperRippleBehavior
+      ( elevation :: Int
+      | r
+      )
+    )
+  )
+
+type PaperButton r = PaperButtonBehavior
+  ( raised :: Boolean
+  | r
+  )
+
+type HTMLpaperButton = PaperButton HTMLbutton
 
 type HTMLpaperCard = Interactive 
   ( alt ∷ String

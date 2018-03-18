@@ -7,6 +7,7 @@ import Prelude
 
 import Control.Monad.Aff (Aff)
 import Control.Monad.Eff.Console (CONSOLE, logShow, log)
+import DOM.Event.Types (MouseEvent)
 import Data.Maybe (Maybe(..))
 import Halogen as H
 import Halogen.HTML as HH
@@ -22,6 +23,7 @@ type State = {}
 data Query a
   = HandleClick a
   | HandleInput String a
+  | HandleButtonClick MouseEvent a
 
 type Input = Unit
 
@@ -48,8 +50,13 @@ component =
   eval ∷ Query ~> H.ComponentDSL State Query Message (Aff (Effects eff))
   eval (HandleClick a) = do
     pure a
+  
   eval (HandleInput x a) = do
     H.liftEff (log x)
+    pure a
+
+  eval (HandleButtonClick _ a) = do
+    H.liftEff (log "button clicked")
     pure a
 
   render ∷ State → H.ComponentHTML Query
@@ -75,8 +82,11 @@ component =
           [ HH.text "Emmentaler or Emmental is a yellow"]
         ]
       , PE.button 
-        [ PP.raised true ]
-        [ HH.text "yolo" ]
+        [ PP.raised true
+        , PP.noink true
+        , HE.onClick (HE.input HandleButtonClick)
+        ]
+        [ HH.text "Create" ]
       , PE.fab
         [ PP.noink true 
         , PP.label "😻"
