@@ -1,25 +1,16 @@
 module Paper.Elements
-  ( button
-  , button_
-  , card 
-  , card_ 
-  , checkbox
-  , checkbox_
+  ( button, button_
+  , card, card_ 
+  , checkbox, checkbox_
   , fab
-  , input
-  , input_
+  , input, input_
+  , radioButton, radioButton_
   )
   where
 
 import Halogen.HTML.Core (ElemName(..), HTML)
 import Halogen.HTML.Elements (Leaf, Node, element)
-import Paper.Indexed 
-  ( HTMLpaperButton
-  , HTMLpaperCard
-  , HTMLpaperCheckbox
-  , HTMLpaperFab
-  , HTMLpaperInput
-  )
+import Paper.Indexed (HTMLpaperButton, HTMLpaperCard, HTMLpaperCheckbox, HTMLpaperFab, HTMLpaperInput, HTMLpaperRadioButton)
 
 button ∷ ∀ p i. Node HTMLpaperButton p i
 button = element (ElemName "paper-button")
@@ -47,3 +38,9 @@ input = element (ElemName "paper-input")
 
 input_ ∷ ∀ p i. Array (HTML p i) → HTML p i
 input_ = input []
+
+radioButton :: ∀ p i. Node HTMLpaperRadioButton p i
+radioButton = element (ElemName "paper-radio-button") 
+
+radioButton_ :: ∀ p i. Array (HTML p i) -> HTML p i
+radioButton_ = radioButton []

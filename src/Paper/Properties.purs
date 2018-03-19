@@ -25,6 +25,7 @@ module Paper.Properties
   )
   where
 
+import DOM.Event.Types (EventTarget)
 import Halogen.HTML.Core (PropName(..))
 import Halogen.HTML.Properties (IProp, prop)
 
@@ -60,6 +61,9 @@ image = prop (PropName "image")
 
 invalid ∷ ∀ r i. Boolean → IProp (invalid ∷ Boolean | r) i
 invalid = prop (PropName "invalid")
+
+-- keyEventTarget :: ∀ r i. EventTarget -> IProp (keyEventTarget :: EventTarget | r) i
+-- keyEventTarget = prop (PropName "keyEventTarget")
 
 label ∷ ∀ r i. String → IProp (label ∷ String | r) i
 label = prop (PropName "label")

@@ -98,6 +98,8 @@ component =
       , PE.checkbox
         [ HP.checked true ]
         []
+      , PE.radioButton_
+        []
       , HH.div_
         [ PE.input 
           [ PP.label "Some random label"
